@@ -1,6 +1,29 @@
 import streamlit as st
 import plotly.graph_objects as go
 import numpy as np
+import base64
+
+# Fungsi untuk memuat gambar dari file lokal dan mengkonversinya ke base64
+def load_image(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+# Menambahkan CSS untuk latar belakang gambar
+image_path = "image/bg2.jpg"  # Ganti dengan path gambar yang sesuai
+image_base64 = load_image(image_path)
+
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url('data:image/jpeg;base64,{image_base64}');
+        background-size: cover;
+        background-position: center;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Class untuk Tabung
 class Tabung:

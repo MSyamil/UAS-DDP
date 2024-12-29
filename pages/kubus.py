@@ -1,5 +1,28 @@
 import streamlit as st
 import plotly.graph_objects as go
+import base64
+
+# Fungsi untuk memuat gambar dari file lokal dan mengkonversinya ke base64
+def load_image(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+# Menambahkan CSS untuk latar belakang gambar
+image_path = "image/bg2.jpg"  # Ganti dengan path gambar yang sesuai
+image_base64 = load_image(image_path)
+
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url('data:image/jpeg;base64,{image_base64}');
+        background-size: cover;
+        background-position: center;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Definisikan kelas Kubus
 class Kubus:
@@ -79,7 +102,8 @@ def validasi_input_while():
         if sisi < 0:
             st.warning("Panjang sisi terlalu kecil! Coba sisi yang lebih besar.")
     return sisi
- 
+
+# Menampilkan judul aplikasi
 st.title("Aplikasi Perhitungan Volume Kubus")
 
 # Meminta input sisi kubus dengan validasi menggunakan while loop
