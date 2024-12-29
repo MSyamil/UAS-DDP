@@ -74,13 +74,10 @@ def validasi_input(sisi):
 
 # Fungsi untuk memvalidasi input dengan while loop
 def validasi_input_while():
-    sisi = st.number_input("Masukkan panjang sisi kubus (cm):", min_value=5.0, step=0.0)
-    while sisi < 5 or sisi > 100:  # Jika sisi kubus tidak valid
-        if sisi < 5:
+    sisi = st.number_input("Masukkan panjang sisi kubus (cm):", min_value=0.0, step=0.1)
+    while sisi < 0:  # Jika sisi kubus tidak valid
+        if sisi < 0:
             st.warning("Panjang sisi terlalu kecil! Coba sisi yang lebih besar.")
-        elif sisi > 100:
-            st.warning("Panjang sisi terlalu besar! Coba sisi yang lebih kecil.")
-        sisi = st.number_input("Masukkan panjang sisi kubus (cm):", min_value=5.0, step=0.1)
     return sisi
  
 st.title("Aplikasi Perhitungan Volume Kubus")
@@ -102,4 +99,5 @@ volume = kubus.hitung_volume()
 st.write(f"Volume kubus dengan sisi {sisi} cm adalah {volume} cm³")
 
 # Menampilkan visualisasi kubus 3D
-kubus.tampilkan_kubus_3d()
+if sisi > 0 :
+    kubus.tampilkan_kubus_3d()
