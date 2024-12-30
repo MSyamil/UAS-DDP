@@ -2,6 +2,12 @@ import streamlit as st
 import plotly.graph_objects as go
 import base64
 
+st.set_page_config(
+    page_title="Visualisasi Kubus",
+    page_icon="https://cdn.icon-icons.com/icons2/2334/PNG/96/box_cube_d_perspective_shape_icon_142362.png",
+    layout="wide"
+)
+
 # Fungsi untuk memuat gambar dari file lokal dan mengkonversinya ke base64
 def load_image(image_path):
     with open(image_path, "rb") as img_file:
@@ -31,6 +37,10 @@ class Kubus:
         self.warna = warna  # Variabel warna kubus
         self.warna_tepi = warna_tepi  # warna garis tepi
 
+    # Fungsi untuk menghitung luas permukaan kubus
+    def hitung_luas_permukaan(self):
+        return 6 * self.sisi ** 2  # Menghitung luas permukaan kubus
+    
     # Fungsi untuk menghitung volume kubus
     def hitung_volume(self):
         return self.sisi ** 3  # Menghitung volume kubus
@@ -104,7 +114,7 @@ def validasi_input_while():
     return sisi
 
 # Menampilkan judul aplikasi
-st.title("Aplikasi Perhitungan Volume Kubus")
+st.title("Aplikasi Perhitungan Luas dan Volume Kubus")
 
 # Meminta input sisi kubus dengan validasi menggunakan while loop
 sisi = validasi_input_while()
@@ -118,7 +128,9 @@ warna_tepi = st.color_picker('Pilih warna garis tepi kubus:', '#000000')  # Defa
 # Membuat objek Kubus
 kubus = Kubus(sisi, warna, warna_tepi)
 
-# Menghitung volume kubus dan menampilkan hasilnya
+# Menghitung luas permukaan dan volume kubus dan menampilkan hasilnya
+lp = kubus.hitung_luas_permukaan()
+st.write(f"Luas permukaan kubus dengan sisi {sisi} cm adalah {lp} cm²")
 volume = kubus.hitung_volume()
 st.write(f"Volume kubus dengan sisi {sisi} cm adalah {volume} cm³")
 
